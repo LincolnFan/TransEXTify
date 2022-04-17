@@ -15,7 +15,7 @@ def img_to_str(image_path):
 
     
 
-# 初始化AipFace对象
+    # 初始化AipFace对象
     client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
 
     """ 可选参数 """
