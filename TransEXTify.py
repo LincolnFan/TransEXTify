@@ -1,5 +1,4 @@
 import os
-import threading
 from multiprocessing.pool import ThreadPool
 
 from PyQt5.QtCore import pyqtSlot, QFileInfo, pyqtSignal, QBuffer, QByteArray, QIODevice, QSize, Qt
@@ -7,8 +6,8 @@ from PyQt5.QtGui import QMovie, QPixmap, QIcon
 from PyQt5.QtWidgets import QWidget, QFileDialog, QLabel
 from QCandyUi.CandyWindow import colorful
 
-# import ocr_util
-import baidu_ocr
+import ocr_util
+
 from screen_capture import CaptureScreen
 from ui_image2text import Ui_image2textWidget
 
@@ -16,9 +15,10 @@ from ui_image2text import Ui_image2textWidget
 SCREEN_SHOT_SHORTCUT = 'alt'
 
 # 资源路径
-SCREEN_SHOT_ICON_URL = './asset/scissors.png'
-OPEN_FILE_ICON_URL = './asset/file.png'
-LOADING_GIF_URL = './asset/loading.gif'
+WORK_PATH = 'D:/VsCode/TransEXTify'
+SCREEN_SHOT_ICON_URL = WORK_PATH+'/asset/scissors.png'
+OPEN_FILE_ICON_URL = WORK_PATH+'/asset/file.png'
+LOADING_GIF_URL = WORK_PATH+'/asset/loading.gif'
 
 # 设置
 MIN_AFTER_SHOT = False
@@ -75,8 +75,7 @@ class TransEXTify(QWidget):
         self.loadingLabel.setVisible(True)
         result = ''
         try:
-            result = baidu_ocr.img_to_str(image)
-            # result = ocr_util.get_ocr_str(image)
+            result = ocr_util.get_ocr_str(image)
         finally:
             self.signal_response.emit(result)
         
@@ -108,8 +107,8 @@ class TransEXTify(QWidget):
 
     @pyqtSlot(QPixmap)
     def __slot_screen_capture(self, image):
-        image.save('./data/1.jpg')
-        self.run_ocr_async('./data/1.jpg')
+        image.save(WORK_PATH+'/data/1.jpg')
+        self.run_ocr_async(WORK_PATH+'/data/1.jpg')
 
     def dragEnterEvent(self, event):
         if (event.mimeData().hasUrls()):
@@ -138,11 +137,6 @@ class TransEXTify(QWidget):
             event.acceptProposedAction()
 
     def __getFiles(self, dir_path, suffix=None):
-        """
-        获取dir_path目录及其子目录下所有.xxx文件的路径
-        :param suffix: 后缀如".sql" ".java" ; 若不填则不进行文件过滤
-        :return: str or list or tuple
-        """
         if dir_path == '' or dir_path is None:
             return
         if os.path.isfile(dir_path):
