@@ -4,7 +4,7 @@ import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 
 def translator(query):
-    url = 'http://fanyi.youdao.com/translate'
+    url = 'http://fanyi.youdao.com'
     data = {
         "i": query,  # 待翻译的字符串
         "from": "AUTO",

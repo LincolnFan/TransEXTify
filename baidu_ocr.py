@@ -8,11 +8,9 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 
 
 def img_to_str(image_path):
-    APP_ID = ''
-    API_KEY = ''
-    SECRET_KEY = ''
-
-
+    APP_ID = '25988176'
+    API_KEY = '3LhapXAf4F8VUGeNHNamUwoX'
+    SECRET_KEY = 'VMaq4pLefBtXQPahMQbd9grXIFLoGxIk'
     
 
     # 初始化AipFace对象
